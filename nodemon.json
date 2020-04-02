@@ -1,0 +1,7 @@
+{
+  "exec": "npm run dev",
+  "watch": [
+    "src/*"
+  ],
+  "ext": "ts, js, handlebars, html, css, json, txt"
+}

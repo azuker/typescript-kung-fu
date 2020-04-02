@@ -1,0 +1,30 @@
+{
+  "name": "typescript-kung-fu",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "build:run": "tsc",
+    "build:clean": "rimraf dist",
+    "build": "npm run build:clean && npm run build:run",
+    "serve": "node dist/index.js",
+    "dev": "ts-node src/index.ts",
+    "start": "nodemon",
+    "lint": "tslint --project . --format codeFrame",
+    "lint:fix": "npm -s run lint:ts -- --fix"
+  },
+  "author": "Amir Zuker",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^13.9.0",
+    "nodemon": "^2.0.2",
+    "rimraf": "^3.0.2",
+    "ts-node": "^8.6.2",
+    "tslint": "^6.0.0",
+    "typescript": "^3.8.3"
+  },
+  "dependencies": {
+    "class-validator": "^0.12.0-rc.0",
+    "rxjs": "^6.5.4"
+  }
+}
