@@ -4,8 +4,9 @@ export interface Model {
 
 export function createModel(): Model {
   // object literal is good enough as an example
-  const model = {} as Model;
-  model.withState = (state: any) => Object.assign(model, state);
-
-  return model;
+  return {
+    withState(this: Model, state: any) {
+      return Object.assign(this, state);
+    },
+  };
 }
