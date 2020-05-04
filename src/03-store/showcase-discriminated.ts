@@ -6,6 +6,8 @@ interface AuthRequest {
   password?: string;
 }
 
+// type Auth = (Omit<AuthRequest, 'token'> & { token?: undefined })
+//   | (Omit<AuthRequest, 'user' | 'password'> & { user?: undefined, password?: undefined });
 type Auth = Xor<Omit<AuthRequest, 'token'>, Omit<AuthRequest, 'user' | 'password'>>;
 
 export function showcase() {
@@ -22,7 +24,7 @@ export function showcase() {
   };
   // not ok
   // auth = {
-  //   token: 'a',
   //   user: 'asdsa',
+  //   token: 'a',
   // };
 }
