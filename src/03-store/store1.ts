@@ -5,7 +5,7 @@ import { filter, map } from 'rxjs/operators';
 /*
   - Shape1 has the same keys of Shape2
   - Values of Shape1's keys are either never or the key name
-  - Shape1[keyof Shape2] - like T[P] but values of all keys
+  - Shape1[keyof Shape2] - like T[P] but values of all keys combined with "|"
 
   type Foo = { id: number; name: string; birth: Date; };
   // exclude number:

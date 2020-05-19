@@ -1,4 +1,6 @@
-import { Xor } from './discriminated';
+import { Discriminated, OneRequired } from './misc';
+
+// Discriminated
 
 interface AuthRequest {
   token?: string;
@@ -8,7 +10,10 @@ interface AuthRequest {
 
 // type Auth = (Omit<AuthRequest, 'token'> & { token?: undefined })
 //   | (Omit<AuthRequest, 'user' | 'password'> & { user?: undefined, password?: undefined });
-type Auth = Xor<Omit<AuthRequest, 'token'>, Omit<AuthRequest, 'user' | 'password'>>;
+type Auth = Discriminated<
+  Omit<AuthRequest, 'token'>,
+  Omit<AuthRequest, 'user' | 'password'>
+>;
 
 export function showcase() {
   let auth: Auth = null as any;
@@ -28,3 +33,20 @@ export function showcase() {
   //   token: 'a',
   // };
 }
+
+// ********************************************************
+
+// OneRequired
+
+interface AuthOptions {
+  roles?: string[];
+  permissions?: string[];
+}
+
+export function authorize(options: OneRequired<AuthOptions>) {}
+
+// should NOT compile
+// authorize({});
+
+// OK
+authorize({ roles: ['asdasd'] });
