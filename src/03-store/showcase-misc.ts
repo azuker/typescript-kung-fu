@@ -50,3 +50,21 @@ export function authorize(options: OneRequired<AuthOptions>) {}
 
 // OK
 authorize({ roles: ['asdasd'] });
+
+// ********************************************************
+
+// as const - readonly graph
+
+const person = {
+  id: '1',
+  address: {
+    street: 'Oak',
+    house: 15,
+  },
+} as const;
+
+// should NOT compile
+// person.id = '2';
+// person.address.street = '2';
+
+// ********************************************************
