@@ -52,3 +52,32 @@ type Person2 = typeof p;
 type Person2Keys = keyof Person2;
 
 // ////////////////////////////////////
+
+// Discriminated Unions
+// combine types and discriminate according to a "singleton" property
+
+interface Square {
+  kind: 'square';
+  size: number;
+}
+interface Rectangle {
+  kind: 'rectangle';
+  width: number;
+  height: number;
+}
+
+type Shape = Square | Rectangle;
+
+// OK
+const shape1: Shape = {
+  kind: 'square',
+  size: 2,
+};
+
+// NOT OK
+// const shape2: Shape = {
+//   kind: 'rectangle',
+//   size: 2,
+// };
+
+// ////////////////////////////////////
