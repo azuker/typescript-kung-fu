@@ -1,6 +1,33 @@
 import { CannotCreateOrUpdate, CannotUpdate, CannotCreate,
   StripRestSpec, CreateDto, UpdateDto } from './dtos';
 
+/*
+// What would you do if you needed to represent slightly different shapes of the same entity?
+
+interface ContactDto {
+  id: number;
+  name: string;
+  likes: number;
+  title: string;
+  age?: number;
+}
+interface CreateContactDto {
+  name: string;
+  title: string;
+  age?: number;
+}
+interface UpdateContactDto {
+  likes: number;
+  title: string;
+  age?: number;
+}
+
+Can play with keys..
+type UpdateContactDto = {
+  [P in Exclude<keyof ContactDto, 'id' | 'name'>]: ContactDto[P];
+}
+*/
+
 interface ContactRest {
   id: CannotCreateOrUpdate<number>;
   name: CannotUpdate<string>;
