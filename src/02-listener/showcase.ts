@@ -3,7 +3,8 @@ import { map, takeUntil } from 'rxjs/operators';
 import { log } from '../utils/log';
 
 // import { Model } from './listener1';
-import { Model } from './listener2';
+// import { Model } from './listener2';
+import { Model } from './listener3';
 
 interface Foo {
   id: number;

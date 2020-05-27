@@ -13,12 +13,13 @@ export class Model<T extends Record<string, any> = any> {
     return this;
   }
 
-  getFieldChanges<TProp extends keyof T>(field: TProp): Observable<T[TProp]>;
-  getFieldChanges<TProp extends keyof T>(fields: TProp[]): Observable<Partial<Pick<T, TProp>>>;
-  getFieldChanges<TProp extends keyof T>(fields: TProp[] | TProp): Observable<T[TProp]> | Observable<Partial<Pick<T, TProp>>> {
+  // improve this a bit further - Partial<T>
+  getFieldChanges(field: string): Observable<unknown>;
+  getFieldChanges(fields: string[]): Observable<Partial<T>>;
+  getFieldChanges(fields: string[] | string): Observable<unknown> | Observable<Partial<T>> {
     if (!Array.isArray(fields)) {
       return this.changes$.pipe(
-        map(o => o[fields] as T[TProp]),
+        map(o => o[fields]),
         filter(o => o !== undefined),
       );
     }
