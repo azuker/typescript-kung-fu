@@ -1,3 +1,6 @@
+// tslint:disable: max-classes-per-file
+// tslint:disable: callable-types
+
 // Discriminated
 
 // remove keys of U from T and have the remaining ones as never (undefined)
@@ -35,3 +38,19 @@ U[keyof U]:
 */
 
 // **************************************************
+
+// Function filtering
+
+interface Type<T> extends Function {
+  new (...args: any[]): T;
+}
+type ExtractKeysOfType<T, U> = { [P in keyof T]: T[P] extends U ? P : never }[keyof T];
+type ExtractFuncs<T, U> = {
+  [P in ExtractKeysOfType<T, (args: U) => any>]: T[P];
+}
+
+export interface Proxy<T> {
+  validate<U>(payloadType: Type<U>): ExtractFuncs<T, U>;
+}
+
+// ********************************************************

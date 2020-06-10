@@ -1,4 +1,7 @@
-import { Discriminated, OneRequired } from './misc';
+// tslint:disable: callable-types
+// tslint:disable: max-classes-per-file
+
+import { Discriminated, OneRequired, Proxy } from './misc';
 
 // Discriminated
 
@@ -66,5 +69,30 @@ const person = {
 // should NOT compile
 // person.id = '2';
 // person.address.street = '2';
+
+// ********************************************************
+
+// Function filtering
+
+class A {
+  public name2?: string;
+}
+class B {
+  public name?: string;
+}
+
+interface Foo {
+  doA(request: A): any;
+  doB(request: B): any;
+}
+
+const a = new A();
+const p: Proxy<Foo> = null as any;
+
+// OK
+p.validate(A).doA(a);
+
+// should NOT compile!
+// p.validate(A).doB(a);
 
 // ********************************************************
