@@ -15,4 +15,6 @@ export function showcaseHoc() {
   // Should not compile!
   // req.sortByFields = ['name'];
   // req.sortByFields = ['else'];
+
+  // See additional demos: mixins
 }
