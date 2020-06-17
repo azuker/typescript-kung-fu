@@ -1,5 +1,5 @@
-export interface Model {
-  withState<T>(state: T): Model & T;
+export type Model<TState = unknown> = TState & {
+  withState<T>(state: T): Model<TState & T>;
 }
 
 export function createModel(): Model {
