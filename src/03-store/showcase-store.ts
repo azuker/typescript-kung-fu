@@ -1,7 +1,7 @@
 import { Subject } from 'rxjs';
 import { OmitSubjectProps, ExtractSubjectProps,
   TransformPropsToObservables, TransformPropsToFuncOrProp,
-  TransformSubjectPropsToObservables, ReadonlyGraph } from './store1';
+  TransformSubjectPropsToObservables, ReadonlyGraph, MaskedStore } from './store1';
 
 interface PostSlim {
   id: number;
@@ -51,6 +51,5 @@ export function showcase() {
   //   p3.name = 'as';
   // });
 
-  // const service = new ContextStoreService();
-  // const masked = service.maskAs<Post>();
+  const masked: MaskedStore<Post> = null as any;
 }

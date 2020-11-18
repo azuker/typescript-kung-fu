@@ -1,33 +1,6 @@
 import { CannotCreateOrUpdate, CannotUpdate, CannotCreate,
   StripRestSpec, CreateDto, UpdateDto } from './dtos';
 
-/*
-// What would you do if you needed to represent slightly different shapes of the same entity?
-
-interface ContactDto {
-  id: number;
-  name: string;
-  likes: number;
-  title: string;
-  age?: number;
-}
-interface CreateContactDto {
-  name: string;
-  title: string;
-  age?: number;
-}
-interface UpdateContactDto {
-  likes: number;
-  title: string;
-  age?: number;
-}
-
-Can play with keys..
-type UpdateContactDto = {
-  [P in Exclude<keyof ContactDto, 'id' | 'name'>]: ContactDto[P];
-}
-*/
-
 interface ContactRest {
   id: CannotCreateOrUpdate<number>;
   name: CannotUpdate<string>;
@@ -40,22 +13,23 @@ interface Contact extends StripRestSpec<ContactRest> {}
 interface ContactCreateDto extends CreateDto<ContactRest> {}
 interface ContactUpdateDto extends UpdateDto<ContactRest> {}
 
+declare const contactBare: Contact;
+declare const createContact: ContactCreateDto;
+declare const updateContact: ContactUpdateDto;
+
 export function showcase() {
-  const c: Contact = null as any;
   // ok
-  c.id = 2;
+  contactBare.id = 2;
 
-  const c2: ContactCreateDto = null as any;
-  // not compile: id not exists
-  // c2.id = 2;
+  // not compile: not exists
+  // createContact.id = 2;
   // ok
-  c2.name = 'asdasd';
+  createContact.name = 'asdasd';
 
-  const c3: ContactUpdateDto = null as any;
-  // not compile: readonly
-  // c3.id = 2;
-  // c3.name = 'asda';
+  // not compile: not exists
+  // updateContact.id = 2;
+  // updateContact.name = 'asda';
   // ok
-  c3.likes = 2;
-  c3.age = 2;
+  updateContact.likes = 2;
+  updateContact.age = 2;
 }

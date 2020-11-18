@@ -29,9 +29,14 @@ type PersonKeys = keyof Person;
 type SillyMappedType = {
   [P in PersonKeys]: Person[P];
 }
+// like Omit, as an example:
 type PersonWithoutId = {
   [P in Exclude<PersonKeys, 'id'>]: Person[P];
 }
+// TS 4.1:
+// type PersonWithoutId2<T> = {
+//   [K in keyof PersonKeys as Exclude<K, 'id'>]: T[K];
+// }
 
 type PersonOrAnimal<T> = T extends Person
   ? Person

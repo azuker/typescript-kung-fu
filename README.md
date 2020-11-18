@@ -15,3 +15,17 @@ This repo contains demos of advanced typing with TypeScript by mostly leveraging
 1. To get an **extremely** basic example of the advanced key TypeScript features being used, take a look at the `src/intro.ts` file.
 1. Follow the showcases starting at the `src/index.ts` file
 1. You can run the project by executing `npm start`
+
+## Demo Order Possibility
+
+- extend
+- query
+- listener
+- proppath2
+- ngroutes
+- dtos
+- readonlygraph
+- store
+- misc
+    - discriminated
+    - one-required

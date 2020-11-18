@@ -8,6 +8,8 @@ export function showcaseExtend() {
     .withState({ id: 2 });
 
   log((model as any).name);
+
   // SHOULD compile:
   log(model.name);
+  log(model.id);
 }
