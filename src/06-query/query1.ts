@@ -22,14 +22,14 @@ interface Query<T> {
 
 declare function createQuery<T extends {}>(): Query<T>;
 
-interface Product {
+interface Product2 {
   id: number;
   name: string;
 }
 
-const query = createQuery<Product>();
+const query = createQuery<Product2>();
 
 query
   .filter('id').largerThan(2)
   .filter('name').contains('xbox')
-  .orderBy('name');
+  .orderBy('id', 'name');

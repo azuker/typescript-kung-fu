@@ -46,7 +46,9 @@ interface AuthOptions {
   permissions?: string[];
 }
 
-export function authorize(options: OneRequired<AuthOptions>) {}
+export function authorize(options: OneRequired<AuthOptions>) {
+  // options.
+}
 
 // should NOT compile
 // authorize({});

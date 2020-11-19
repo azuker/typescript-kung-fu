@@ -1,9 +1,10 @@
 /*
  * T: { foo: { bar: string }, baz: { bam: string }, moo: string }
+  PathOf<{ foo: { bar: string }, baz: { bam: string }, moo: string }> ??
 
   foo extends object --> ['foo'] | ?
     ? --> bar NOT extends object --> ['foo', 'bar']
-    --> foo: ['foo', ['foo', 'bar']]
+    --> foo: ['foo'] | ['foo', 'bar']
   baz extends object --> ['baz'] | ?
     ? --> bam NOT extends object --> ['baz', 'bam']
     --> baz: ['baz'] | ['baz', 'bam']
@@ -21,6 +22,9 @@ type PathOf2<T extends object, P extends any[] = []> = {
     [...P, K]
 }[keyof T];
 
+type Sample1 = { foo: { bar: string }, baz: { bam: string }, moo: string };
+type Sample2 = PathOf2<Sample1>;
+
 type Join2<T extends string[], D extends string> =
     T extends string ? T :
     T extends [] ? '' :
@@ -28,6 +32,8 @@ type Join2<T extends string[], D extends string> =
     T extends [unknown, ...infer U] ?
     `${T[0]}${D}${Join2<U, D>}` :
     string;
+
+type Sample3 = Join2<Sample2, '.'>;
 
 /*
  * T: { foo: { bar: string }, baz: { bam: string }, moo: string }

@@ -1,6 +1,6 @@
 import { log } from '../utils/log';
-// import { createModel } from './extend1';
-import { createModel } from './extend2';
+import { createModel } from './extend1';
+// import { createModel } from './extend2';
 
 export function showcaseExtend() {
   const model = createModel()
@@ -10,6 +10,6 @@ export function showcaseExtend() {
   log((model as any).name);
 
   // SHOULD compile:
-  log(model.name);
-  log(model.id);
+  // log(model.name);
+  // log(model.id);
 }
