@@ -30,7 +30,7 @@ type Join2<T extends string[], D extends string> =
     T extends [] ? '' :
     T extends [unknown] ? `${T[0]}` :
     T extends [unknown, ...infer U] ?
-    `${T[0]}${D}${Join2<U, D>}` :
+    `${T[0]}${D}${Join2<Extract<U, string[]>, D>}` :
     string;
 
 type Sample3 = Join2<Sample2, '.'>;
@@ -44,6 +44,7 @@ type Sample3 = Join2<Sample2, '.'>;
 
   Voila! those are the possible values!
  */
+// @ts-ignore
 type SerializedPathOf2<T extends object> = Join2<Extract<PathOf2<T>, string[]>, '.'>;
 
 /*
@@ -69,6 +70,7 @@ type ExtractKeyPath2<O extends Record<string, any>, T extends string> =
         ? O[Start]
         : unknown;
 
+// @ts-ignore
 declare function get2<O extends {}, T extends SerializedPathOf2<O>>(o: O, path: T): ExtractKeyPath2<O, T>;
 
 type Person2 = { address: { street: string, num: number, foo: { bar: string } }};

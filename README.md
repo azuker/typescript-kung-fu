@@ -19,13 +19,13 @@ This repo contains demos of advanced typing with TypeScript by mostly leveraging
 ## Demo Order Possibility
 
 - extend
-- query
 - listener
+- query
 - proppath2
 - ngroutes
+- store
 - dtos
 - readonlygraph
-- store
 - misc
     - discriminated
     - one-required

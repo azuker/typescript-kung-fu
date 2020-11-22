@@ -19,7 +19,7 @@ type SerializedPathOf<T extends object> = Join<Extract<PathOf<T>, string[]>, '.'
 type Join<T extends string[], D extends string> =
   T extends [] ? '' :
   T extends [unknown] ? `${T[0]}` :
-  T extends [unknown, ...infer U] ? `${T[0]}${D}${Join<U, D>}` :
+  T extends [unknown, ...infer U] ? `${T[0]}${D}${Join<Extract<U, string[]>, D>}` :
   string;
 
 declare function path<T extends object>(source: T, path: PathOf<T>): string;

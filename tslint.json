@@ -2,6 +2,7 @@
   "extends": "tslint:recommended",
   "rulesDirectory": [],
   "rules": {
+    "no-shadowed-variable": false,
     "no-empty": [
       false
     ],
