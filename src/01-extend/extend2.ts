@@ -5,7 +5,7 @@ export function createModel(): Model {
 }
 
 export class Model {
-  withState<T extends Model, U>(this: T, state: U): T & U {
+  withState<T, U>(this: T, state: U): T & U {
     return Object.assign(this, state);
   }
 }

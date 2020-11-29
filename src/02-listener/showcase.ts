@@ -37,6 +37,11 @@ export function showcaseListener() {
     takeUntil(cleanup),
   ).subscribe(log);
 
+  // should NOT compile
+  // model.observe('id2').pipe(
+  //   takeUntil(cleanup),
+  // ).subscribe(log);
+
   log('id, name, birth:');
   model.withState({ id: 2, name: 'Model 2', birth: new Date() });
 

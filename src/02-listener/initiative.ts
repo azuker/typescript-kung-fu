@@ -14,7 +14,7 @@ async function initiative() {
 
   smartProduct.observe('id').subscribe((newId: number) => { /* ... */});
   smartProduct.observe('name').subscribe((newId: string) => { /* .. .*/});
-  smartProduct.observe(['id', 'name']).subscribe((newState: {}) => { /* newState.id / newState.name */});
+  smartProduct.observe(['id', 'name']).subscribe((newState: {}) => { /* newState.id? / newState.name? */});
 
   smartProduct.id++;
   smartProduct.name += 'suffix';

@@ -28,3 +28,29 @@ export class Model<T extends Record<string, any> = any> {
     );
   }
 }
+
+/*
+
+keyof T - all keys of T
+
+type Foo = { id: number; name: string; age: number; };
+keyof Foo --> 'id' | 'name' | 'age'
+
+T[K] - type of K's key in T
+Foo['id'] --> number
+
+*********
+
+Pick<T, U> - picks U keys from T
+
+Pick<{ id: number; name: string; age: number; }, 'id | name'>
+  --> { id: number; name: string; }
+
+*********
+
+Partial<T> - all keys as T but as optional
+
+Partial<{ id: number; name: string; age: number; }>
+  --> { id?: number; name?: string; age?: number; }
+
+*/
