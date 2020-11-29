@@ -101,3 +101,18 @@ const wrap = <T extends unknown[], U>(fn: (...args: T) => U) => {
 const wrapped = wrap((p1: string, p2: number) => 2);
 
 // ********************************************************
+
+// Function wrapping - skip first parameter
+
+function publishUserClickAnalytics(times: number, email: boolean, options: { alert: boolean }) {}
+
+type SkipFirst<T extends unknown[]> = T extends [any, ...infer U] ? U : never
+
+function publishUserClickSumAnalytics(times: number[], ...rest: SkipFirst<Parameters<typeof publishUserClickAnalytics>>) {
+  // this wraps the fn above but replaces the first parameter
+  // want to reuse types - all parameters except the first
+  const sum = times.reduce((a, b) => a + b, 0);
+  publishUserClickAnalytics(sum, ...rest);
+}
+
+// ********************************************************
