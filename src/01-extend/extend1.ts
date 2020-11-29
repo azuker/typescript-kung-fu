@@ -5,7 +5,7 @@ export interface Model {
 export function createModel(): Model {
   // object literal is good enough as an example
   return {
-    withState(this: Model, state: any) {
+    withState(state: any) {
       return Object.assign(this, state);
     },
   };

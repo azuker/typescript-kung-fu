@@ -14,9 +14,9 @@ export class Model<T extends Record<string, any> = any> {
   }
 
   // improve this a bit further - Partial<T>
-  getFieldChanges(field: string): Observable<unknown>;
-  getFieldChanges(fields: string[]): Observable<Partial<T>>;
-  getFieldChanges(fields: string[] | string): Observable<unknown> | Observable<Partial<T>> {
+  observe(field: string): Observable<unknown>;
+  observe(fields: string[]): Observable<Partial<T>>;
+  observe(fields: string[] | string): Observable<unknown> | Observable<Partial<T>> {
     if (!Array.isArray(fields)) {
       return this.changes$.pipe(
         map(o => o[fields]),

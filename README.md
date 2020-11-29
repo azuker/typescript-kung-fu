@@ -20,8 +20,9 @@ This repo contains demos of advanced typing with TypeScript by mostly leveraging
 
 - extend
 - listener
+- proppath2 (glimpse)
+- showcase-changes
 - query
-- proppath2
 - ngroutes
 - store
 - dtos

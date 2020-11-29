@@ -13,9 +13,9 @@ export class Model<T extends Record<string, any> = any> {
     return this;
   }
 
-  getFieldChanges<TProp extends keyof T>(field: TProp): Observable<T[TProp]>;
-  getFieldChanges<TProp extends keyof T>(fields: TProp[]): Observable<Partial<Pick<T, TProp>>>;
-  getFieldChanges<TProp extends keyof T>(fields: TProp[] | TProp): Observable<T[TProp]> | Observable<Partial<Pick<T, TProp>>> {
+  observe<TProp extends keyof T>(field: TProp): Observable<T[TProp]>;
+  observe<TProp extends keyof T>(fields: TProp[]): Observable<Partial<Pick<T, TProp>>>;
+  observe<TProp extends keyof T>(fields: TProp[] | TProp): Observable<T[TProp]> | Observable<Partial<Pick<T, TProp>>> {
     if (!Array.isArray(fields)) {
       return this.changes$.pipe(
         map(o => o[fields] as T[TProp]),

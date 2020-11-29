@@ -13,9 +13,9 @@ export class Model<T extends Record<string, any> = any> {
     return this;
   }
 
-  getFieldChanges(field: string): Observable<unknown>;
-  getFieldChanges(fields: string[]): Observable<{}>;
-  getFieldChanges(fields: string[] | string): Observable<unknown> | Observable<{}> {
+  observe(field: string): Observable<unknown>;
+  observe(fields: string[]): Observable<{}>;
+  observe(fields: string[] | string): Observable<unknown> | Observable<{}> {
     if (!Array.isArray(fields)) {
       return this.changes$.pipe(
         map(o => o[fields]),

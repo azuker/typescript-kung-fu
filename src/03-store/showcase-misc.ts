@@ -1,41 +1,36 @@
 // tslint:disable: callable-types
 // tslint:disable: max-classes-per-file
 
-import { Discriminated, OneRequired, Proxy } from './misc';
+import { Discriminated, AtLeastOneOf, Proxy } from './misc';
 
 // Discriminated
 
-interface AuthRequest {
-  token?: string;
-  user?: string;
-  password?: string;
+interface AuthOption1 {
+  token: string;
+}
+interface AuthOption2 {
+  user: string;
+  password: string;
 }
 
-// type Auth = (Omit<AuthRequest, 'token'> & { token?: undefined })
-//   | (Omit<AuthRequest, 'user' | 'password'> & { user?: undefined, password?: undefined });
-type Auth = Discriminated<
-  Omit<AuthRequest, 'token'>,
-  Omit<AuthRequest, 'user' | 'password'>
->;
+function initiative(options: AuthOption1 | AuthOption2) {}
 
-export function showcase() {
-  let auth: Auth = null as any;
+// should NOT compile
+initiative({ user: 'asdsa', token: 'a' });
 
-  // ok
-  auth = {
-    password: 'a',
-    user: 'a',
-  };
-  // ok
-  auth = {
-    token: 'a',
-  };
-  // not ok
-  // auth = {
-  //   user: 'asdsa',
-  //   token: 'a',
-  // };
-}
+// type AuthOption =
+//   (AuthOption2 & { token?: undefined }) |
+//   (AuthOption1 & { user?: undefined, password?: undefined });
+type AuthOption = Discriminated<AuthOption2, AuthOption1>;
+
+export function showcase(options: AuthOption) {}
+
+// should compile
+showcase({ user: 'asdsa', password: 'a', });
+showcase({ token: 'a', });
+
+// should NOT compile
+// showcase({ user: 'asdsa', token: 'a', });
 
 // ********************************************************
 
@@ -46,9 +41,7 @@ interface AuthOptions {
   permissions?: string[];
 }
 
-export function authorize(options: OneRequired<AuthOptions>) {
-  // options.
-}
+export function authorize(options: AtLeastOneOf<AuthOptions>) {}
 
 // should NOT compile
 // authorize({});
@@ -96,5 +89,15 @@ p.validate(A).doA(a);
 
 // should NOT compile!
 // p.validate(A).doB(a);
+
+// ********************************************************
+
+// Function wrapping
+
+const wrap = <T extends unknown[], U>(fn: (...args: T) => U) => {
+  return (...args: T): U => fn(...args)
+}
+
+const wrapped = wrap((p1: string, p2: number) => 2);
 
 // ********************************************************

@@ -1,11 +1,12 @@
-export type Model<TState = unknown> = TState & {
-  withState<T>(state: T): Model<TState & T>;
+// making it work with a simple object + this type
+
+export type Model = {
+  withState<T extends Model, U>(this: T, state: U): T & U;
 }
 
 export function createModel(): Model {
-  // object literal is good enough as an example
   return {
-    withState<TState, T>(this: Model<TState>, state: T): Model<TState & T> {
+    withState<T extends Model, U>(this: T, state: U): T & U {
       return Object.assign(this, state);
     },
   };

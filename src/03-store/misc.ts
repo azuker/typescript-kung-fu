@@ -3,7 +3,7 @@
 
 // Discriminated
 
-// remove keys of U from T and have the remaining ones as never (undefined)
+// keys that exist in T and not in U as never, results in undefined
 type Without<T, U> = { [P in Exclude<keyof T, keyof U>]?: never }
 
 // return discriminated union:
@@ -16,11 +16,11 @@ export type Discriminated<T, U> = T | U extends object
 
 // **************************************************
 
-// One Required
+// AtLeastOneOf
 
 // like partial but exclude empty
 type WrapTypeKeys<T> = {[K in keyof T]: Pick<Required<T>, K> };
-export type OneRequired<T, U = WrapTypeKeys<T>> = Partial<T> & U[keyof U];
+export type AtLeastOneOf<T, U = WrapTypeKeys<T>> = Partial<T> & U[keyof U];
 
 /*
 interface AuthOptions {
