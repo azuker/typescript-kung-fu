@@ -1,4 +1,6 @@
-import { OmitPropsOfType, ExcludeKeysOfType, ExtractKeysOfType } from './store1';
+type OmitOfType<T extends {}, K> = {
+  [P in keyof T as T[P] extends K ? never : P]: T[P];
+};
 
 export type CannotCreate<T = unknown> = T & { __magicalField1: boolean };
 export type CannotUpdate<T = unknown> = T & { __magicalField2: boolean };
@@ -12,8 +14,9 @@ export type StripRestSpec<T> = {
     T[P];
 };
 
-export type CreateDto<T> = StripRestSpec<OmitPropsOfType<T, CannotCreate>>;
-export type UpdateDto<T> = StripRestSpec<OmitPropsOfType<T, CannotUpdate>>;
+export type Dto<T> = StripRestSpec<T>;
+export type CreateDto<T> = StripRestSpec<OmitOfType<T, CannotCreate>>;
+export type UpdateDto<T> = StripRestSpec<OmitOfType<T, CannotUpdate>>;
 
 // type RestUpdateableKeys<T> = ExcludeKeysOfType<T, CannotUpdate>;
 // type RestUpdateableProps<T> = {

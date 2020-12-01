@@ -19,7 +19,7 @@ export type Discriminated<T, U> = T | U extends object
 // AtLeastOneOf
 
 // like partial but exclude empty
-type WrapTypeKeys<T> = {[K in keyof T]: Pick<Required<T>, K> };
+type WrapTypeKeys<T> = { [K in keyof T]: Pick<Required<T>, K> };
 export type AtLeastOneOf<T, U = WrapTypeKeys<T>> = Partial<T> & U[keyof U];
 
 /*

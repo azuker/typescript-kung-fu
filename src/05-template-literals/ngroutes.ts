@@ -54,9 +54,9 @@ const appRoutes = routes(
       },
     ),
   },
-)
+);
 
-const buildPath = createPathBuilder(appRoutes)
+const buildPath = createPathBuilder(appRoutes);
 
 buildPath() // => ''
 buildPath('book', 12) // => 'book/12'

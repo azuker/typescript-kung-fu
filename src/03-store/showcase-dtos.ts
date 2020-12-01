@@ -1,5 +1,5 @@
 import { CannotCreateOrUpdate, CannotUpdate, CannotCreate,
-  StripRestSpec, CreateDto, UpdateDto } from './dtos';
+  Dto, CreateDto, UpdateDto } from './dtos';
 
 interface ContactRest {
   id: CannotCreateOrUpdate<number>;
@@ -9,9 +9,10 @@ interface ContactRest {
   age?: number;
 }
 
-interface Contact extends StripRestSpec<ContactRest> {}
-interface ContactCreateDto extends CreateDto<ContactRest> {}
-interface ContactUpdateDto extends UpdateDto<ContactRest> {}
+// try hovering, tooling behavior can vary between type aliases and interfaces
+type Contact = Dto<ContactRest>;
+type ContactCreateDto = CreateDto<ContactRest>;
+type ContactUpdateDto = UpdateDto<ContactRest>;
 
 declare const contactBare: Contact;
 declare const createContact: ContactCreateDto;
