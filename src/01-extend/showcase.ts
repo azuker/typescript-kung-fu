@@ -9,9 +9,9 @@ import { createModel } from './extend1';
 export function showcaseExtend() {
   // Model - withState<T extends Model, U>(this: T, state: U): T & U
 
-  const model = createModel() // Model
-    .withState({ name: 'Jane' }) // Model & { name: string }
-    .withState({ id: 2 }); // Model & { name: string } & { id: number }
+  const model = createModel() // Model<unknown>
+    .withState({ name: 'Jane' }) // Model<unknown & { name: string }>
+    .withState({ id: 2 }); // Model<unknown & { name: string } & { id: number }>
 
   log((model as any).name);
 

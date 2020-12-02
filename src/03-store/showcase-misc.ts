@@ -2,6 +2,7 @@
 // tslint:disable: max-classes-per-file
 
 import { Discriminated, AtLeastOneOf, Proxy } from './misc';
+import { log } from '../utils/log';
 
 // Discriminated
 
@@ -34,15 +35,35 @@ showcase({ token: 'a', });
 
 // ********************************************************
 
-// OneRequired
+// AtLeastOneOf
 
 interface AuthOptions {
   roles?: string[];
   permissions?: string[];
 }
 
-// export function authorize(options: AuthOptions) {}
-export function authorize(options: AtLeastOneOf<AuthOptions>) {}
+// problem:
+// function authorize(options: AuthOptions) {}
+
+// we want something like this:
+// type AuthInput = { roles: string[] } | { permissions: string[] };
+// function authorize(options: AuthInput) {
+//   // But, this doesn't compile, need type guards
+//   log(options.roles, options.permissions);
+// }
+
+// so, this is better:
+// type AuthInput2 = {
+//   roles?: string[];
+//   permissions?: string[];
+// } & ({ roles: string[] } | { permissions: string[] });
+// function authorize(options: AuthInput2) {
+//   // But, this doesn't compile, need type guards
+//   log(options.roles, options.permissions);
+// }
+
+// solution:
+function authorize(options: AtLeastOneOf<AuthOptions>) {}
 
 // should NOT compile
 // authorize({});

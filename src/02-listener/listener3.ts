@@ -46,6 +46,9 @@ Pick<T, U> - picks U keys from T
 Pick<{ id: number; name: string; age: number; }, 'id | name'>
   --> { id: number; name: string; }
 
+TProp type becomes the union of
+  fn(['id', 'name']) --> TProp = 'id' | 'name'
+
 *********
 
 Partial<T> - all keys as T but as optional

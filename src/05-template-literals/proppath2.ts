@@ -73,9 +73,8 @@ type ExtractKeyPath2<O extends Record<string, any>, T extends string> =
 // @ts-ignore
 declare function get2<O extends {}, T extends SerializedPathOf2<O>>(o: O, path: T): ExtractKeyPath2<O, T>;
 
-type Person2 = { address: { street: string, num: number, foo: { bar: string } }};
-
-declare const pp: Person2;
+type PersonPropPath = { address: { street: string, num: number, foo: { bar: string } }};
+declare const pp: PersonPropPath;
 
 const pp1 = get2(pp, 'address'); // { street: string; num: number; foo: { bar: string; } }
 const pp2 = get2(pp, 'address.street'); // string
