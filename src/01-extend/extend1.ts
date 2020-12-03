@@ -1,5 +1,5 @@
 export interface Model {
-  withState(state: any): Model
+  withState(state: any): Model;
 }
 
 export function createModel(): Model {
