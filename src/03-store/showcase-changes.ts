@@ -22,7 +22,7 @@ declare interface OnChanges {
 }
 
 @Component({})
-export class Demo1Component implements OnChanges {
+class Demo1Component implements OnChanges {
   @Input() items = ['FR', 'DE', 'ES'];
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -34,13 +34,13 @@ export class Demo1Component implements OnChanges {
 ///////////////////////////////////////
 // custom:
 
-export interface TypedSimpleChange<T> {
+interface TypedSimpleChange<T> {
   previousValue: T;
   currentValue: T;
   firstChange: boolean;
 }
 
-export type TypedSimpleChanges<T, K extends keyof T = keyof T> = SimpleChanges & {
+type TypedSimpleChanges<T, K extends keyof T = keyof T> = SimpleChanges & {
   [P in K]?: TypedSimpleChange<T[P]>;
 };
 
@@ -51,7 +51,7 @@ export type TypedSimpleChanges<T, K extends keyof T = keyof T> = SimpleChanges &
 // }
 
 @Component({})
-export class Demo2Component implements OnChanges {
+class Demo2Component implements OnChanges {
   @Input() items = ['FR', 'DE', 'ES'];
   stamKey = 2;
 
