@@ -1,6 +1,9 @@
 // assume you have a rich query endpoint in the backend (OData like)
 // consider you want to provide a TypeScript friendly SDK
 
+// get products with id lower than 2 and name contains lala:
+// localhost:8080/api/products?filter=id#lt#2$and$name#contains#lala
+
 interface NumberFilters<T> {
   largerThan(p: number): NumberFilters<T> & T;
   smallerThan(p: number): NumberFilters<T> & T;

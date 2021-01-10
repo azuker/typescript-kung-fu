@@ -26,7 +26,8 @@ interface UpdateContactSampleDto {
 
 declare function updateContact(contactUpdate: UpdateContactSampleDto): Promise<ContactSampleDto>;
 
-// can play with keys of course (opted in or out)..
-type UpdateContactDto = {
+// can play with keys of course (opted in or out) - Pick/Omit Exclude/Extract
+type UpdateContactDto1 = Omit<ContactSampleDto, 'id' | 'name'>
+type UpdateContactDto2 = {
   [P in Exclude<keyof ContactSampleDto, 'id' | 'name'>]: ContactSampleDto[P];
 }

@@ -10,3 +10,9 @@ export function createModel(): Model {
     },
   };
 }
+
+// declare const p: Model;
+// const p1 = p
+//   .withState({id: 2})
+//   // .withState({ name: 'john '})
+//   ;

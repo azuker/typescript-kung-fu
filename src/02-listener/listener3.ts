@@ -29,6 +29,13 @@ export class Model<T extends Record<string, any> = any> {
   }
 }
 
+// type Foo = { id: number; name: string; };
+// // type FooKeys = keyof Foo;
+// // type FooId = Foo['id']
+
+// type FooSlim = Partial<Pick<Foo, 'id' | 'name'>>;
+
+
 /*
 
 keyof T - all keys of T

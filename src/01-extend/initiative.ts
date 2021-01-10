@@ -4,11 +4,10 @@
 
 // export const User = types
 //   .model({
-//     id: types.identifier,
 //     firstName: types.string,
 //     lastName: types.string,
 //   })
-//   .views(self => ({
+//   .views((self: { firstName: string; lastName: string; }) => ({
 //     get fullName() {
 //       return `${self.firstName} ${self.lastName}`;
 //     },
