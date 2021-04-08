@@ -54,3 +54,38 @@ export interface Proxy<T> {
 }
 
 // ********************************************************
+
+// Discrimination + Inferred + Reduce Type Parameter
+
+// Object:
+
+interface KeyInterceptor<T, K extends keyof T> {
+  key: K;
+  interceptor?: (visitor: T[K]) => T[K];
+}
+
+export type KeysToInterceptorUnion<T> = {
+  [K in keyof T]: KeyInterceptor<T, K>;
+}[keyof T];
+
+// the idea: KeyInterceptor<User, 'name'> | KeyInterceptor<User, 'birth'>
+
+// Function:
+// (note: if it wasn't for the return type it could have been simpler like the sample above)
+
+// thanks to distributive conditional types and inference
+// https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-8.html#distributive-conditional-types
+// https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-8.html#type-inference-in-conditional-types
+type UnionToIntersection<U> =
+  (U extends any ? (k: U) => void : never) extends ((k: infer I) => void) ? I : never;
+
+type InterceptFunc<T, K extends keyof T> = (options: KeyInterceptor<T, K>) => T[K];
+type KeysToInterceptFuncUnion<T> = {
+  [K in keyof T]: InterceptFunc<T, K>;
+}[keyof T];
+
+export type InterceptFuncs<T> = UnionToIntersection<KeysToInterceptFuncUnion<T>>;
+
+// the idea: InterceptFunc<User, 'name'> & InterceptFunc<User, 'birth'>
+
+// ********************************************************

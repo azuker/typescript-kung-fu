@@ -1,7 +1,7 @@
 // tslint:disable: callable-types
 // tslint:disable: max-classes-per-file
 
-import { Discriminated, AtLeastOneOf, Proxy } from './misc';
+import { Discriminated, AtLeastOneOf, Proxy, KeysToInterceptorUnion, InterceptFuncs } from './misc';
 import { log } from '../utils/log';
 
 // Discriminated
@@ -136,5 +136,31 @@ function publishUserClickSumAnalytics(times: number[], ...rest: SkipFirst<Parame
   const sum = times.reduce((a, b) => a + b, 0);
   publishUserClickAnalytics(sum, ...rest);
 }
+
+// ********************************************************
+
+// Discrimination + Inferred + Reduce Type Parameter
+
+interface BookAuthor {
+  name: string;
+  likes: number;
+}
+
+// Object:
+
+const i1: KeysToInterceptorUnion<BookAuthor> = {
+  key: 'likes',
+  interceptor: (l => l), // l is typed as number
+};
+
+// Function:
+
+declare const buildInterceptor: InterceptFuncs<BookAuthor>;
+
+// i2 is typed as string
+const i2 = buildInterceptor({
+  key: 'name',
+  interceptor: (n => n), // n is typed as string
+});
 
 // ********************************************************
