@@ -14,6 +14,13 @@ export type Discriminated<T, U> = T | U extends object
   ? (Without<T, U> & U) | (Without<U, T> & T)
   : T | U;
 
+export type DiscriminatedMulti<T extends readonly any[]> = 
+  T extends [infer U1, ...infer U]
+    ? U extends [infer U2, ...infer Rest]
+      ? Discriminated<U1, DiscriminatedMulti<U>>
+      : U1
+    : never;
+
 // **************************************************
 
 // AtLeastOneOf

@@ -1,7 +1,7 @@
 // tslint:disable: callable-types
 // tslint:disable: max-classes-per-file
 
-import { Discriminated, AtLeastOneOf, Proxy, KeysToInterceptorUnion, InterceptFuncs } from './misc';
+import { Discriminated, AtLeastOneOf, Proxy, KeysToInterceptorUnion, InterceptFuncs, DiscriminatedMulti } from './misc';
 import { log } from '../utils/log';
 
 // Discriminated
@@ -32,6 +32,10 @@ showcase({ token: 'a', });
 
 // should NOT compile
 // showcase({ user: 'asdsa', token: 'a', });
+
+// can use multi (2 or more):
+// type DisAuth = DiscriminatedMulti<[AuthOption1, AuthOption2]>;
+// declare const disAuth: DisAuth;
 
 // ********************************************************
 
