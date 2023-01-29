@@ -1,4 +1,4 @@
-# TypeScript Kunug Fu
+# TypeScript Kung Fu
 
 Welcome to TypeScript Kung Fu repo!
 

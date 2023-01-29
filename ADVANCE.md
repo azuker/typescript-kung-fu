@@ -102,3 +102,26 @@ https://devblogs.microsoft.com/typescript/announcing-typescript-4-1
         deepFlatten([[1], [2, 3]]);
         deepFlatten([[1], [[2]], [[[3]]]]);
         ```
+
+## v5.0
+
+https://devblogs.microsoft.com/typescript/announcing-typescript-5-0-beta
+
+- Const Type Parameters
+    - As if `as const` was included in specified arguments
+    - Works only on certain types and inline arguments (defined when calling the function)
+    - Example
+
+    ```ts
+    type HasNames = { names: readonly string[] };
+    function getNamesExactly<const T extends HasNames>(arg: T): T["names"] {
+    //                       ^^^^^
+        return arg.names;
+    }
+
+    // Inferred type: readonly ["Alice", "Bob", "Eve"]
+    // Note: Didn't need to write 'as const' here
+    const names = getNamesExactly({ names: ["Alice", "Bob", "Eve"] });
+    ```
+
+
