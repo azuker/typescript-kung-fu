@@ -1,3 +1,7 @@
+# Considerations
+
+- Consider using branded/nominal/opaque types in contracts example
+
 # TypeScript New Features
 
 This repo isn't updated as TS evolves, unfortunately.
