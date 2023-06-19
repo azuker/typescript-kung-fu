@@ -143,6 +143,32 @@ function publishUserClickSumAnalytics(times: number[], ...rest: SkipFirst<Parame
 
 // ********************************************************
 
+// How to replace last parameter
+
+// Index helper
+type LastIndex<T extends readonly any[]> =
+    ((...t: T) => void) extends ((x: any, ...r: infer R) => void) ?  Exclude<keyof T, keyof R> : never;
+
+// Replace last parameter with mapped type
+type ReplaceLastParam<TParams extends readonly any[], TReplace> = {
+    [K in keyof TParams]: K extends LastIndex<TParams> ? TReplace : TParams[K] 
+}
+
+// Replace function
+type ReplaceLast<F, TReplace> = F extends (...args: infer T) => infer R
+    ? (...args: ReplaceLastParam<T, TReplace>) => R
+    : never;
+
+type OrigArg = { arg: number };
+type ReplacedArg = { arg: string };
+type OrigFunc = (a: number, b: string, c?: OrigArg) => string;
+type ReplacedFunc = ReplaceLast<OrigFunc, ReplacedArg>;
+// type ReplacedFunc = (a: number, b: string, c?: ReplacedArg) => string;
+
+declare const replacedFunc: ReplacedFunc;
+
+// ********************************************************
+
 // Discrimination + Inferred + Reduce Type Parameter
 
 interface BookAuthor {
