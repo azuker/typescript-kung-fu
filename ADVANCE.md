@@ -7,6 +7,10 @@
 This repo isn't updated as TS evolves, unfortunately.
 Following are specific TS features that were introduced afterwards which could certainly affect the written examples, either by offering shorthands or even rendering it obsolete.
 
+## Misc
+
+- `in/out` Generic Type Arguments (covariant / contravariant) 
+
 ## v4.8
 
 https://devblogs.microsoft.com/typescript/announcing-typescript-4-8/
@@ -128,4 +132,129 @@ https://devblogs.microsoft.com/typescript/announcing-typescript-5-0-beta
     const names = getNamesExactly({ names: ["Alice", "Bob", "Eve"] });
     ```
 
+## v5.2
 
+https://devblogs.microsoft.com/typescript/announcing-typescript-5-2-beta/
+
+- Decorators now have access to simplified metadata (can get and set)
+- `using` Declarations and Explicit Resource Management
+    - A new built-in symbol called `Symbol.dispose`, and we can create objects with methods named by `Symbol.dispose`
+    - Works like using `try/finally`
+    - A new `Symbol.asyncDispose`, and it brings us to the next star of the show — await using declarations
+    - `DisposableStack` and `AsyncDisposableStack`. These objects are useful for doing both one-off clean-up, along with arbitrary amounts of cleanup. A DisposableStack is an object that has several methods for keeping track of Disposable objects, and can be given functions for doing arbitrary clean-up work. We can also assign them to using variables because — get this — they’re also Disposable
+
+    ```ts
+    class TempFile implements Disposable {
+        #path: string;
+        #handle: number;
+
+        constructor(path: string) {
+            this.#path = path;
+            this.#handle = fs.openSync(path, "w+");
+        }
+
+        // other methods
+
+        [Symbol.dispose]() {
+            // Close the file and delete it.
+            fs.closeSync(this.#handle);
+            fs.unlinkSync(this.#path);
+        }
+    }
+
+    // without using -
+
+    function doSomeWork() {
+        const file = new TempFile(".some_temp_file");
+
+        try {
+            // ...
+        }
+        finally {
+            file[Symbol.dispose]();
+        }
+    }
+
+    // with using -
+
+    function doSomeWork() {
+        using file = new TempFile(".some_temp_file");
+
+        // use file...
+
+        if (someCondition()) {
+            // do some more work...
+            return;
+        }
+    }
+    ```
+
+    ```ts
+    async function doWork() {
+        // Do fake work for half a second.
+        await new Promise(resolve => setTimeout(resolve, 500));
+    }
+
+    function loggy(id: string): AsyncDisposable {
+        console.log(`Constructing ${id}`);
+        return {
+            async [Symbol.asyncDispose]() {
+                console.log(`Disposing (async) ${id}`);
+                await doWork();
+            },
+        }
+    }
+
+    async function func() {
+        await using a = loggy("a");
+        await using b = loggy("b");
+        {
+            await using c = loggy("c");
+            await using d = loggy("d");
+        }
+        await using e = loggy("e");
+        return;
+
+        // Unreachable.
+        // Never created, never disposed.
+        await using f = loggy("f");
+    }
+
+    func();
+    // Constructing a
+    // Constructing b
+    // Constructing c
+    // Constructing d
+    // Disposing (async) d
+    // Disposing (async) c
+    // Constructing e
+    // Disposing (async) e
+    // Disposing (async) b
+    // Disposing (async) a
+    ```
+
+    ```ts
+    function doSomeWork() {
+        const path = ".some_temp_file";
+        const file = fs.openSync(path, "w+");
+
+        using cleanup = new DisposableStack();
+        cleanup.defer(() => {
+            fs.closeSync(file);
+            fs.unlinkSync(path);
+        });
+
+        // use file...
+
+        if (someCondition()) {
+            // do some more work...
+            return;
+        }
+
+        // ...
+    }
+
+    // However, if all you’re interested in is using and await using, you should be able to get away with only polyfilling the built-in symbols. Something as simple as the following should work for most cases:
+    Symbol.dispose ??= Symbol("Symbol.dispose");
+    Symbol.asyncDispose ??= Symbol("Symbol.asyncDispose");
+    ```
