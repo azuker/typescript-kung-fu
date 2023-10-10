@@ -1,7 +1,7 @@
 // tslint:disable: callable-types
 // tslint:disable: max-classes-per-file
 
-import { Discriminated, AtLeastOneOf, Proxy, KeysToInterceptorUnion, InterceptFuncs, DiscriminatedMulti } from './misc';
+import { Discriminated, AtLeastOneOf, Proxy, KeysToInterceptorUnion, InterceptFuncs, DiscriminatedMulti, WidenLiteral } from './misc';
 import { log } from '../utils/log';
 
 // Discriminated
@@ -192,5 +192,15 @@ const i2 = buildInterceptor({
   key: 'name',
   interceptor: (n => n), // n is typed as string
 });
+
+// ********************************************************
+
+// WidenLiteral
+
+type NonWidened1 = 'name'; // type: 'name'
+type Widened1 = WidenLiteral<'name'>; // type: string
+
+type NonWidened2 = 1; // type: 1 
+type Widened2 = WidenLiteral<1>; // type: number
 
 // ********************************************************

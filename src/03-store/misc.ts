@@ -96,3 +96,9 @@ export type InterceptFuncs<T> = UnionToIntersection<KeysToInterceptFuncUnion<T>>
 // the idea: InterceptFunc<User, 'name'> & InterceptFunc<User, 'birth'>
 
 // ********************************************************
+
+// WidenLiteral - if we want to widen a literal/specific type to its primitive type (opposite of `as const`)
+
+export type WidenLiteral<T> = T extends string | number | boolean | bigint | symbol ? ReturnType<T["valueOf"]> : never;
+
+// ********************************************************
