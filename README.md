@@ -16,6 +16,7 @@ This repo contains demos of advanced typing with TypeScript by mostly leveraging
 1. Follow the showcases starting at the `src/index.ts` file
 1. You can run the project by executing `npm start`
 
+
 ## Demo Order Possibility
 
 - extend
