@@ -102,3 +102,9 @@ export type InterceptFuncs<T> = UnionToIntersection<KeysToInterceptFuncUnion<T>>
 export type WidenLiteral<T> = T extends string | number | boolean | bigint | symbol ? ReturnType<T["valueOf"]> : never;
 
 // ********************************************************
+
+// Prettify - make tooling display a type better
+
+export type Prettify<T> = { [K in keyof T]: T[K] } & {};
+
+// ********************************************************

@@ -1,8 +1,7 @@
 // tslint:disable: callable-types
 // tslint:disable: max-classes-per-file
 
-import { Discriminated, AtLeastOneOf, Proxy, KeysToInterceptorUnion, InterceptFuncs, DiscriminatedMulti, WidenLiteral } from './misc';
-import { log } from '../utils/log';
+import { Discriminated, AtLeastOneOf, Proxy, KeysToInterceptorUnion, InterceptFuncs, Prettify, WidenLiteral } from './misc';
 
 // Discriminated
 
@@ -202,5 +201,14 @@ type Widened1 = WidenLiteral<'name'>; // type: string
 
 type NonWidened2 = 1; // type: 1 
 type Widened2 = WidenLiteral<1>; // type: number
+
+// ********************************************************
+
+// Prettify
+
+// Hover on Intersected vs. PrettyIntersected
+
+type Intersected = { a: number; } & { b: string; };
+type PrettyIntersected = Prettify<Intersected>;
 
 // ********************************************************
