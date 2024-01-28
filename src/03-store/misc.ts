@@ -108,3 +108,15 @@ export type WidenLiteral<T> = T extends string | number | boolean | bigint | sym
 export type Prettify<T> = { [K in keyof T]: T[K] } & {};
 
 // ********************************************************
+
+// It uses recursion, but it's tail-optimizable, so, since TS implements that optimization, maybe this won't break your compiler. This can go up to 999.
+
+type _NumbersBefore<N extends number, A extends number[] = []> = A['length'] extends N
+  ? A[number]
+  : _NumbersBefore<N, [...A, A['length']]>;
+
+export type NumbersBefore<N extends number> = _NumbersBefore<N>;
+
+export type NumbersInRange<A extends number, B extends number> = Exclude<NumbersBefore<B>, NumbersBefore<A>>;
+
+// ********************************************************

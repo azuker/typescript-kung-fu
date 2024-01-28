@@ -1,7 +1,7 @@
 // tslint:disable: callable-types
 // tslint:disable: max-classes-per-file
 
-import { Discriminated, AtLeastOneOf, Proxy, KeysToInterceptorUnion, InterceptFuncs, Prettify, WidenLiteral } from './misc';
+import { Discriminated, AtLeastOneOf, Proxy, KeysToInterceptorUnion, InterceptFuncs, Prettify, WidenLiteral, NumbersBefore, NumbersInRange } from './misc';
 
 // Discriminated
 
@@ -210,5 +210,15 @@ type Widened2 = WidenLiteral<1>; // type: number
 
 type Intersected = { a: number; } & { b: string; };
 type PrettyIntersected = Prettify<Intersected>;
+
+// ********************************************************
+
+// NumbersBefore / NumbersInRange
+
+// It uses recursion, but it's tail-optimizable, so, since TS implements that optimization, maybe this won't break your compiler. This can go up to 999.
+
+type To100 = NumbersBefore<999>;
+
+type From50To100 = NumbersInRange<50, 101>;
 
 // ********************************************************
