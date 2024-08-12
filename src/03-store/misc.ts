@@ -120,3 +120,11 @@ export type NumbersBefore<N extends number> = _NumbersBefore<N>;
 export type NumbersInRange<A extends number, B extends number> = Exclude<NumbersBefore<B>, NumbersBefore<A>>;
 
 // ********************************************************
+
+type Color1 = 'primary' | 'secondary' | string; // No autocomplete for specific literals, ends us with widened string type
+type Color2 = 'primary' | 'secondary' | (string & {}); // Keeps specific literal types intact, supports auto complete
+
+const c1: Color1 = 'primary';
+const c2: Color2 = 'primary';
+
+// ********************************************************

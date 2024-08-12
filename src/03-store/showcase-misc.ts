@@ -222,3 +222,11 @@ type To100 = NumbersBefore<999>;
 type From50To100 = NumbersInRange<50, 101>;
 
 // ********************************************************
+
+type Color1 = 'primary' | 'secondary' | string; // No autocomplete for specific literals, ends us with widened string type
+type Color2 = 'primary' | 'secondary' | (string & {}); // Keeps specific literal types intact, supports auto complete
+
+const c1: Color1 = 'primary';
+const c2: Color2 = 'primary';
+
+// ********************************************************
